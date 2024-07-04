@@ -1,0 +1,99 @@
+.filters {
+    /* padding: 20px; */
+    background-color: rgba(31, 41, 55);
+    height: 100%;
+    position: static;
+    
+  }
+  
+
+  .filters h2 {
+    margin-bottom: 10px;
+  }
+  
+  .filters form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  
+  /* .filters div {
+    display: flex;
+    flex-direction: column;
+  } */
+  
+  .filters label {
+    margin-bottom: 5px;
+  }
+  
+  .filters input,
+  .filters select {
+    padding: 5px;
+    width: 100%;
+    margin-top: 5px;
+  }
+  
+  .filters button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .genre-bg{
+   color: black;
+  }
+  .filters button:hover {
+    background-color: #0056b3;
+  }
+
+  .p-text{
+      color: rgba(107, 114, 128);
+      margin-top: .5rem;
+        margin-bottom: .5rem;
+  
+  }
+  
+  .span-rating{
+    margin-left: .25rem;
+    margin-right: .25rem;
+    color: rgb(231, 231, 229);
+  }
+
+  .ratings-filter {
+    display: flex;
+    flex-direction: row;
+    
+    width: 100%; 
+    padding: 10px;
+  }
+  
+  
+  .years{
+    display: flex;
+    flex-direction: row;
+  }
+
+ 
+
+  .symbol{
+    color: azure;
+    margin-left: .5rem;
+    margin-right:.5rem;
+    margin-top: .5rem;
+  }
+
+  .filter-head{
+    color:rgba(107, 114, 128);
+    font-weight: 700;
+    padding-right: 3rem;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+  }
+
+  .filter-subhead{
+    color:rgba(107, 114, 128) ;
+    margin-top:.5rem;
+    margin-bottom: .5rem;
+  }
