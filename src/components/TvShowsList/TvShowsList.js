@@ -1,13 +1,22 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React,{useEffect} from 'react';
+import { useDispatch,useSelector } from 'react-redux';
 import { TailSpin } from 'react-loader-spinner';
+import { fetchGenresList } from '../../redux/filtersSlice';
 import './TvShowsList.css';
 
 const TvShowsList = () => {
+  const dispatch = useDispatch();
   console.log('TvShowsList.js Running');
   const tvShows = useSelector((state) => state.tvShows.list);
   const status = useSelector((state) => state.tvShows.status);
   const error = useSelector((state) => state.tvShows.error);
+
+  const genresList = useSelector((state) => state.genres.genresList); 
+  const filters=useSelector((state)=>state.genres);
+
+  useEffect(() => {
+    dispatch(fetchGenresList());
+  }, [dispatch]);
 
   if (status === 'loading') {
     return (
@@ -32,10 +41,13 @@ const TvShowsList = () => {
                 src={`https://image.tmdb.org/t/p/w500${show.poster_path}`}
                 alt={show.name}
               />
-              <div>
-                <p className="tv-show-info">{show.name}</p>
-                <p className="tv-show-info">{show.genre_ids[0]},{show.first_air_date.slice(0, 4)}</p>
-              </div>
+               <p className='tv-show-title'>{show.name}</p>
+          <p className='movie-info'>
+               {show.genre_ids.length > 0 && genresList.length > 0 && (
+                  <>{genresList.find((g) => g.id === show.genre_ids[0])?.name}</>
+                )}{', '}
+                {show.first_air_date.slice(0, 4)}
+          </p>
             </div>
           ))
         )}

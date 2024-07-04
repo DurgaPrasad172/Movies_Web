@@ -1,5 +1,6 @@
 //src/redux/moviesSlice.js
-import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { setTotalResults } from './filtersSlice';
 
 const API_KEY = 'e46d9b84798dfc2b0f8c6153f7ea4910';
 const BASE_URL = 'https://api.themoviedb.org/3';
@@ -8,31 +9,23 @@ const pageSize=20;
 
 export const fetchMovies = createAsyncThunk(
     'movies/fetchMovies',
-    async ({ navType, query, genreClicked, rating,yearFrom, yearTo }) => {
+    async ({ navType, query, genreClicked, rating,yearFrom, yearTo,page }) => {
     
-   console.log(navType, query, genreClicked, rating,yearFrom, yearTo);
+   console.log(navType, query, genreClicked, rating,yearFrom, yearTo,page);
 
     console.log('Fetching Moives is running');
     let url;
 
     if (navType === 'now_playing' || navType ==='popular' || navType==='top_rated') {
-      url = `${BASE_URL}/movie/${navType}?api_key=${API_KEY}`;
+      url = `${BASE_URL}/movie/${navType}?&page=${page}api_key=${API_KEY}`;
     } else if (navType === 'trend') {
-      url = `${BASE_URL}/trending/movie/week?api_key=${API_KEY}`;
+      url = `${BASE_URL}/trending/movie/week?page=${page}api_key=${API_KEY}`;
     }
-     
-
     
-      console.log('url',url);
-      
-      
-      
-    //////////
-
     if (query.length>0) {
-      url = `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}`;
+      url = `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}&page=${page}`;
     } else if(genreClicked.length || yearFrom || yearTo){
-      url = `${BASE_URL}/discover/movie?api_key=${API_KEY}`;
+      url = `${BASE_URL}/discover/movie?page=${page}&api_key=${API_KEY}`;
 
       console.log('url in not query',url);
       if (navType === 'popular') {
@@ -58,6 +51,8 @@ export const fetchMovies = createAsyncThunk(
       const response = await fetch(url);
       const data = await response.json();
       console.log('In Fetch Movies',data.results);
+
+      
       return data.results;
     }
   );

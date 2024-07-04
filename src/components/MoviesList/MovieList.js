@@ -1,8 +1,12 @@
+//src/components/MoviesList/MovieLists.js
 import React,{useState,useEffect} from 'react';
 import {useDispatch, useSelector } from 'react-redux';
 import {TailSpin} from 'react-loader-spinner';
 import { fetchGenresList } from '../../redux/filtersSlice';
-import Pagination from 'react-paginate';
+import ReactPaginate from 'react-paginate';
+import { setPage ,setTotalResults} from '../../redux/filtersSlice';
+import { fetchMovies } from '../../redux/moviesSlice';
+import { fetchTvShows } from '../../redux/tvShowsSlice';
 
 import './MovieList.css';
 
@@ -16,14 +20,28 @@ const MovieList = () => {
   const error = useSelector((state) => state.movies.error);
 
   const genresList = useSelector((state) => state.genres.genresList); 
-
+  const filters=useSelector((state)=>state.genres);
+  
+  const currentPage=useSelector((state)=>state.genres.page);
+  const totalResults = useSelector((state) => state.genres.totalResults);
  
   useEffect(() => {
     dispatch(fetchGenresList());
   }, [dispatch]);
 
-  console.log('MovieList.js Running');
+  useEffect(() => {
+    if (filters.type === 'movie') {
+      dispatch(fetchMovies({ ...filters, page: currentPage }));
+    } else {
+      dispatch(fetchTvShows({ ...filters, page: currentPage }));
+    }
+  }, [dispatch, filters, currentPage]);
+
  
+  const handlePageChange = ({ selected }) => {
+    const newPage = selected + 1;
+    dispatch(setPage(newPage));
+  };
 
 
   if (status === 'loading') {
@@ -39,33 +57,6 @@ const MovieList = () => {
   }
  
   return (
-  // <div className='movie-container'>
-  
-  //     <div className="movie-grid">
-  //       {movies && (
-  //         movies.map((movie) => (
-  //           <div key={movie.id} className="movie-card">
-  //             <img className='movie-img' src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
-  //             <div>
-               
-  //               <p className='movie-info'>{movie.title}</p>
-              
-  //               <p className='movie-info'>{movie.genre_ids[0]},{movie.release_date.slice(0,4)}</p>
-                
-  //             </div>
-             
-  //           </div>
-  //         ))
-  //       // ) : (
-  //       //   <div>No movies found</div>
-  //       )}
-  //     </div>
-      
-  //     <div className='Pagination'>
-
-  //     </div>
-  
-  //   </div>
 
  
   <div className='movie-container'>
@@ -86,13 +77,30 @@ const MovieList = () => {
       </div>
     ))}
   </div>
-
-  <div className='Pagination'>
-    {/* Pagination component goes here */}
+  <div className='pagination'>
+  <ReactPaginate
+          pageCount={Math.ceil(filters.totalResults / 20)}
+          pageRangeDisplayed={5}
+          marginPagesDisplayed={10}
+          onPageChange={handlePageChange}
+          containerClassName="pagination"
+          activeClassName="active"
+          previousLabel={'<'}
+          nextLabel={'>'}
+        />
+    
+       
   </div>
-</div>
+
+  </div>
+
 
   );
 };
 
 export default MovieList;
+
+
+
+
+

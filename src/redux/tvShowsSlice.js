@@ -50,7 +50,7 @@ const API_KEY = 'e46d9b84798dfc2b0f8c6153f7ea4910';
 const BASE_URL = 'https://api.themoviedb.org/3';
 
 export const fetchTvShows = createAsyncThunk('tvShows/fetchTvShows',
-  async ({ navType, query, genreClicked, rating,yearFrom, yearTo }) => {
+  async ({ navType, query, genreClicked, rating,yearFrom, yearTo,page }) => {
     
     console.log(navType, query, genreClicked, rating,yearFrom, yearTo);
  
@@ -63,6 +63,31 @@ export const fetchTvShows = createAsyncThunk('tvShows/fetchTvShows',
        url = `${BASE_URL}/trending/tv/week?api_key=${API_KEY}`;
      }
       
+     if (query.length>0) {
+      url = `${BASE_URL}/search/tv?api_key=${API_KEY}&query=${query}&page=${page}`;
+    } else if(genreClicked.length || yearFrom || yearTo){
+      url = `${BASE_URL}/discover/tv?page=${page}&api_key=${API_KEY}`;
+
+      console.log('url in not query',url);
+      if (navType === 'popular') {
+        url += '&sort_by=popularity.desc';
+        console.log('url in not query popular',url);
+      } else if(navType === 'trend'){
+        url+='&sort_by=vote_count.desc';
+      }else if ( navType === 'now_playing') {
+        url += '&sort_by=release_date.desc';
+      } else if (navType === 'top_rated') {
+        url += '&sort_by=vote_average.desc';
+      }
+
+      if (genreClicked.length > 0) {
+        url += `&with_genres=${genreClicked.join(',')}`;
+      }
+      if (yearFrom) url += `&release_date.gte=${yearFrom}-01-01`;
+      if (yearTo) url += `&release_date.te=${yearTo}-12-31`;
+      if (rating) url+=`&vote_average.gte=${rating}&vote_average.lte=5`;
+    }
+    
     const response = await fetch(url);
     const data = await response.json();
     return data.results;

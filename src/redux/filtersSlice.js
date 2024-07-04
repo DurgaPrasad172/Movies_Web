@@ -16,6 +16,7 @@ console.log('filtersSlice is running');
 const genresSlice=createSlice({
     name:'genres',
     initialState:{
+        page:1,
         navType:'popular',
         query:'',
         type:'movie',
@@ -26,6 +27,7 @@ const genresSlice=createSlice({
         rating:0,
         status:'idle',
         error:null,
+        totalResults:0,
     },
     reducers:{
         setFilter(state,action){
@@ -37,6 +39,12 @@ const genresSlice=createSlice({
         setQuery(state, action) {
             state.query = action.payload;
           },
+        setPage(state,action){
+          state.page=action.payload;
+        },
+        setTotalResults(state, action) {
+          state.totalResults = action.payload;
+        },
         toggleGenre(state, action) {
             const genreId = action.payload;
             if (state.genreClicked.includes(genreId)) {
@@ -75,7 +83,7 @@ const genresSlice=createSlice({
     },
 });
 
-export const {setFilter,setNavType,setQuery,toggleGenre,resetFilters,clearQuery,setRating}=genresSlice.actions;
+export const {setFilter,setNavType,setQuery,toggleGenre,resetFilters,clearQuery,setRating,setPage,setTotalResults}=genresSlice.actions;
 export default genresSlice.reducer;
 
 // import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';

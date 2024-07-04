@@ -143,11 +143,11 @@ const Filters = () => {
         <Rating
           initialRating={filters.rating}
           onChange={handleRatingChange}
-          emptySymbol={<FaStar className="star-icon" size={15} />}
-          fullSymbol={<FaStar className="star-icon" size={15} fill="#ffc107" />}
+          emptySymbol={<FaStar className="star-icon" size={20} />}
+          fullSymbol={<FaStar className="star-icon" size={20} fill="#ffc107" />}
           fractions={2}
         />
-
+       <span> & up</span>
     
 </div>
       </>

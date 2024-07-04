@@ -26,43 +26,41 @@ const Header = () => {
     setSearchQuery(event.target.value);
     console.log(event.target.value);
     dispatch(setQuery(searchQuery));
-    dispatch(fetchMovies({ ...filters,navType: 'search' ,query: searchQuery}));
-    
+    if(filters.type==='movie'){
+      dispatch(fetchMovies({ ...filters,navType: 'search' ,query: searchQuery}));
+    }
+    else{
+    dispatch(fetchTvShows({ ...filters,navType: 'search' ,query: searchQuery}));
+    }
   };
 
-  // const handleSearchSubmit = (event) => {
-  //   event.preventDefault();
-  //   dispatch(setQuery(searchQuery));
-  //   dispatch(fetchMovies({ ...filters,navType: 'search' ,query: searchQuery}));
-    
-  // };
 
   const handleLinkClick = (navValue) => {
    // console.log('Header:',navValue);                 
 
     dispatch(setNavType(navValue)); 
     if (!filters.query) {
-      dispatch(fetchMovies({ ...filters, navType: navValue }));
+      if (filters.type === 'movie') {
+        dispatch(fetchMovies({ ...filters,  navType: navValue }));
+      } else {
+        dispatch(fetchTvShows({ ...filters,  navType: navValue  }));
+      }
+     
     }
   };
 
 
   return (
     <header className='header'>
-    
-       
         <Link className='header-left' onClick={() => handleLinkClick('popular')} to='/popular'> <p  >Discover</p></Link> 
-         
-       
-     
-      <nav className="nav-middle">
-        
-        
-        <Link to='/popular' className='nav1' onClick={() => handleLinkClick('popular')}>Popular</Link>
-        <Link to='/trend' className='nav1' onClick={() => handleLinkClick('trend')}>Trend</Link>
-        <Link to='/new' className='nav1' onClick={() => handleLinkClick('now_playing')}>Newest</Link>
-        <Link to='/top' className='nav1' onClick={() => handleLinkClick('top_rated')}>Top Rated</Link>
-       
+      <nav>
+        <ul className='list'>
+        <li className='l1'><Link to='/popular' className='l1' onClick={() => handleLinkClick('popular')}>Popular</Link></li>
+
+       <li className='l2'> <Link to='/trend' className='nav1' onClick={() => handleLinkClick('trend')}>Trend</Link></li>
+       <li className='l2'> <Link to='/new' className='nav1' onClick={() => handleLinkClick('now_playing')}>Newest</Link></li>
+       <li className='l2'>  <Link to='/top' className='nav1' onClick={() => handleLinkClick('top_rated')}>Top Rated</Link></li>
+        </ul>
       </nav>
 
       <div className="nav-right">

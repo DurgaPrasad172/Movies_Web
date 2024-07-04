@@ -1,12 +1,9 @@
 .header {
     display: flex;
-
     justify-content: space-between;
     align-items: center;
-  
-    
-  
   }
+  
 
  .header-left{
   font-size: 1.5rem;
@@ -15,9 +12,27 @@
   text-decoration: none;
  }
   
-
+.list{
+  list-style-type: none;
+  display: flex;
+}
   
-  .nav-middle {
+.l1{
+  color:aliceblue;
+  font-weight: 700;
+  padding-left: .75rem;
+  padding-right: .75rem;
+ text-decoration: none;
+}
+
+.l2{
+  color:rgba(59,130,246);
+  font-weight: 700;
+  cursor: pointer;
+  padding-left: .75rem;
+  padding-right: .75rem;
+}
+   .nav-middle {
     display: flex;
     gap: 20px;
     text-decoration: none;
@@ -38,12 +53,14 @@
     padding-right: .75rem;
   }
 
-  .nav1:hover {
+  .nav1 ::after {
 
     color:aliceblue;
-  }
+  } 
   
-
+ .l2 ::after{
+  color:aliceblue;
+ }
   
   /*Header Right*/
 
