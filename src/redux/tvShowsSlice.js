@@ -38,7 +38,7 @@ export const fetchTvShows = createAsyncThunk('tvShows/fetchTvShows',
         url += `&with_genres=${genreClicked.join(',')}`;
       }
       if (yearFrom) url += `&release_date.gte=${yearFrom}-01-01`;
-      if (yearTo) url += `&release_date.te=${yearTo}-12-31`;
+      if (yearTo) url += `&release_date.lte=${yearTo}-12-31`;
       if (rating) url+=`&vote_average.gte=${rating}&vote_average.lte=5`;
     }
     

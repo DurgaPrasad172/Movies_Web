@@ -30,7 +30,7 @@ export const fetchMovies = createAsyncThunk(
       console.log('url in not query',url);
       if (navType === 'popular') {
         url += '&sort_by=popularity.desc';
-        console.log('url in not query popular',url);
+
       } else if(navType === 'trend'){
         url+='&sort_by=vote_count.desc';
       }else if ( navType === 'now_playing') {
@@ -43,7 +43,7 @@ export const fetchMovies = createAsyncThunk(
         url += `&with_genres=${genreClicked.join(',')}`;
       }
       if (yearFrom) url += `&release_date.gte=${yearFrom}-01-01`;
-      if (yearTo) url += `&release_date.te=${yearTo}-12-31`;
+      if (yearTo) url += `&release_date.lte=${yearTo}-12-31`;
       if (rating) url+=`&vote_average.gte=${rating}&vote_average.lte=5`;
     }
     
