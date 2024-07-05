@@ -24,7 +24,7 @@ const Filters = () => {
     label: genre.name,
   }));
 
-  const yearOptions = Array.from({ length: 125 }, (_, i) => ({
+  const yearOptions = Array.from({ length: 124 }, (_, i) => ({
     value: 1900 + i,
     label: (1900 + i).toString(),
   }));

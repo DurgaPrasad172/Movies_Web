@@ -5,7 +5,7 @@ import { useDispatch ,useSelector} from 'react-redux';
 import { fetchMovies } from '../../redux/moviesSlice';
 import { fetchTvShows } from '../../redux/tvShowsSlice';
 import './Header.css';
-import { setNavType ,setQuery,resetFilters,clearQuery} from '../../redux/filtersSlice';
+import { setNavType ,setQuery} from '../../redux/filtersSlice';
 
 
 const API_KEY = 'e46d9b84798dfc2b0f8c6153f7ea4910';

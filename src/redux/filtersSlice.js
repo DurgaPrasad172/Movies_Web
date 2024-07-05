@@ -22,8 +22,8 @@ const genresSlice=createSlice({
         type:'movie',
         genresList:[],
         genreClicked:[],
-        yearFrom:1900,
-        yearTo:2024,
+        yearFrom:'1990',
+        yearTo:'2024',
         rating:0,
         status:'idle',
         error:null,
@@ -55,16 +55,6 @@ const genresSlice=createSlice({
           },
           setRating(state, action) {
             state.rating = action.payload;
-          },
-          clearQuery(state) {
-            state.query = '';
-          },
-          resetFilters(state) {
-            state.query = '';
-            state.selectedGenres = [];
-            state.yearFrom = '';
-            state.yearTo = '';
-            state.navType = 'popular';
           },
     },
     extraReducers:(builder)=>{
