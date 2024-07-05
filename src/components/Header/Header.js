@@ -23,6 +23,7 @@ const Header = () => {
 
 
   const handleSearchChange = (event) => {
+   
     setSearchQuery(event.target.value);
     console.log(event.target.value);
     dispatch(setQuery(searchQuery));

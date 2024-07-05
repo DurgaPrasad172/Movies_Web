@@ -35,7 +35,7 @@ function App() {
         <div className='p-6 w-full h-full'>
 
           <Routes>
-
+            <Route path='/' element={<MovieList/>}/>
             <Route path='/popular' element={filters.type==='movie'?<MovieList/>:<TvShowsList/>}/>
             <Route path='/trend' element={filters.type==='movie'?<MovieList/>:<TvShowsList/>}/>
             <Route path='/new' element={filters.type==='movie'?<MovieList/>:<TvShowsList/>}/>
